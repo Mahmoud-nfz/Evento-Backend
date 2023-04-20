@@ -1,8 +1,12 @@
-import { Module } from '@nestjs/common'
-import { AppController } from './app.controller'
-import { AppService } from './app.service'
-import { ConfigModule } from '@nestjs/config'
-import { TypeOrmModule } from '@nestjs/typeorm'
+import { Module } from '@nestjs/common';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { UsersModule } from './users/users.module';
+import { GenericModule } from './generic/generic.module';
 
 @Module({
 	imports: [
@@ -16,10 +20,16 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 			port: parseInt(process.env.DB_PORT),
 			username: process.env.DB_USERNAME,
 			password: process.env.DB_PASSWORD,
-			database: process.env.DB_DATABASE,
+			database: process.env.DB_NAME,
 			entities: [__dirname + '/**/*.entity{.ts,.js}'],
 			synchronize: true,
 		}),
+		GraphQLModule.forRoot<ApolloDriverConfig>({
+			driver: ApolloDriver,
+			autoSchemaFile: 'schema.gql',
+		}),
+		UsersModule,
+		GenericModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],
