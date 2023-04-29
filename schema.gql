@@ -3,50 +3,35 @@
 # ------------------------------------------------------
 
 type User {
-	"""
-	id
-	"""
-	id: Int!
+  """id"""
+  id: Int!
 
-	"""
-	created at
-	"""
-	createdAt: DateTime!
+  """created at"""
+  createdAt: DateTime!
 
-	"""
-	updated at
-	"""
-	updatedAt: DateTime!
+  """updated at"""
+  updatedAt: DateTime!
 
-	"""
-	deleted at
-	"""
-	deletedAt: DateTime!
+  """deleted at"""
+  deletedAt: DateTime!
 
-	"""
-	username
-	"""
-	username: String!
+  """username"""
+  username: String!
 
-	"""
-	first name
-	"""
-	firstName: String!
+  """first name"""
+  firstName: String!
 
-	"""
-	last name
-	"""
-	lastName: String!
+  """last name"""
+  lastName: String!
 
-	"""
-	email
-	"""
-	email: String!
+  """email"""
+  email: String!
 
-	"""
-	password
-	"""
-	password: String!
+  """password"""
+  password: String!
+
+  """role"""
+  role: String!
 }
 
 """
@@ -54,68 +39,56 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type UserLoginResponse {
+  user: User!
+  access_token: String!
+}
+
 type Query {
-	users: [User!]!
-	user(id: Int!): User!
+  users: [User!]!
+  user(id: Int!): User!
+  whoAmI: User!
+  hello: String!
 }
 
 type Mutation {
-	createUser(createUserInput: CreateUserInput!): User!
-	updateUser(updateUserInput: UpdateUserInput!): User!
-	removeUser(id: Int!): User!
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: Int!): User!
+  login(username: String!, password: String!): UserLoginResponse!
 }
 
 input CreateUserInput {
-	"""
-	username
-	"""
-	username: String!
+  """username"""
+  username: String!
 
-	"""
-	first name
-	"""
-	firstName: String!
+  """first name"""
+  firstName: String!
 
-	"""
-	last name
-	"""
-	lastName: String!
+  """last name"""
+  lastName: String!
 
-	"""
-	email
-	"""
-	email: String!
+  """email"""
+  email: String!
 
-	"""
-	password
-	"""
-	password: String!
+  """password"""
+  password: String!
 }
 
 input UpdateUserInput {
-	"""
-	username
-	"""
-	username: String
+  """username"""
+  username: String
 
-	"""
-	first name
-	"""
-	firstName: String
+  """first name"""
+  firstName: String
 
-	"""
-	last name
-	"""
-	lastName: String
+  """last name"""
+  lastName: String
 
-	"""
-	email
-	"""
-	email: String
+  """email"""
+  email: String
 
-	"""
-	password
-	"""
-	password: String
-	id: Int!
+  """password"""
+  password: String
+  id: Int!
 }

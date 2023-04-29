@@ -25,4 +25,8 @@ export class User extends GenericEntity {
 	@Field(() => String, { description: 'password' })
 	@Column({ select: false })
 	password: string;
+
+	@Field(() => String, { description: 'role' })
+	@Column()
+	role: string;
 }
