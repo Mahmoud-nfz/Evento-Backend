@@ -27,11 +27,26 @@ type User {
   """email"""
   email: String!
 
+  """phone number"""
+  phoneNumber: String!
+
   """password"""
   password: String!
 
   """role"""
   role: String!
+
+  """town"""
+  town: String!
+
+  """state"""
+  state: String!
+
+  """address"""
+  address: String!
+
+  """gps address"""
+  gpsAddress: String!
 }
 
 """
@@ -55,6 +70,7 @@ type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: Int!): User!
+  signup(user: CreateUserInput!): User!
   login(username: String!, password: String!): UserLoginResponse!
 }
 
@@ -71,8 +87,20 @@ input CreateUserInput {
   """email"""
   email: String!
 
+  """phone number"""
+  phoneNumber: String!
+
   """password"""
   password: String!
+
+  """town"""
+  town: String!
+
+  """state"""
+  state: String!
+
+  """address"""
+  address: String!
 }
 
 input UpdateUserInput {
@@ -88,7 +116,19 @@ input UpdateUserInput {
   """email"""
   email: String
 
+  """phone number"""
+  phoneNumber: String
+
   """password"""
   password: String
+
+  """town"""
+  town: String
+
+  """state"""
+  state: String
+
+  """address"""
+  address: String
   id: Int!
 }

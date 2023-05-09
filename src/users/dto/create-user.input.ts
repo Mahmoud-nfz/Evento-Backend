@@ -1,5 +1,12 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
-import { IsNotEmpty, IsEmail, MaxLength, IsString } from 'class-validator';
+import {
+	IsNotEmpty,
+	IsEmail,
+	MaxLength,
+	IsString,
+	IsNumber,
+	IsOptional,
+} from 'class-validator';
 
 @InputType()
 export class CreateUserInput {
@@ -24,8 +31,26 @@ export class CreateUserInput {
 	@MaxLength(40)
 	email: string;
 
+	@Field(() => String, { description: 'phone number' })
+	@IsNotEmpty()
+	// @IsNumber()
+	// @MaxLength(8)
+	phoneNumber: string;
+
 	@Field(() => String, { description: 'password' })
 	@IsNotEmpty()
 	@MaxLength(40)
 	password: string;
+
+	@Field(() => String, { description: 'town' })
+	@IsNotEmpty()
+	town: string;
+
+	@Field(() => String, { description: 'state' })
+	@IsNotEmpty()
+	state: string;
+
+	@Field(() => String, { description: 'address' })
+	@IsNotEmpty()
+	address: string;
 }

@@ -22,6 +22,10 @@ export class User extends GenericEntity {
 	@Column({ unique: true })
 	email: string;
 
+	@Field(() => String, { description: 'phone number' })
+	@Column({ unique: true })
+	phoneNumber: string;
+
 	@Field(() => String, { description: 'password' })
 	@Column({ select: false })
 	password: string;
@@ -29,4 +33,20 @@ export class User extends GenericEntity {
 	@Field(() => String, { description: 'role' })
 	@Column()
 	role: string;
+
+	@Field(() => String, { description: 'town' })
+	@Column()
+	town: string;
+
+	@Field(() => String, { description: 'state' })
+	@Column()
+	state: string;
+
+	@Field(() => String, { description: 'address' })
+	@Column()
+	address: string;
+
+	@Field(() => String, { description: 'gps address' })
+	@Column({ nullable: true })
+	gpsAddress: string;
 }

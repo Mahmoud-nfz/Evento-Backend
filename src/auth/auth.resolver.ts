@@ -8,6 +8,8 @@ import { AuthService } from './auth.service';
 import { UserLoginResponse } from 'src/users/dto/user-login.response';
 import { Roles } from './roles.decorator';
 import { RolesGuard } from './roles.guard';
+import { UserDTO } from 'src/users/dto/user.trasnport';
+import { CreateUserInput } from 'src/users/dto/create-user.input';
 
 @Resolver()
 export class AuthResolver {
@@ -15,6 +17,13 @@ export class AuthResolver {
 		private authService: AuthService,
 		private usersService: UsersService
 	) {}
+
+	@Mutation(() => User)
+	async signup(@Args('user') user: CreateUserInput): Promise<UserDTO> {
+		console.log(user);
+		const registeredUser = await this.authService.signup(user);
+		return registeredUser;
+	}
 
 	@Mutation(() => UserLoginResponse)
 	async login(

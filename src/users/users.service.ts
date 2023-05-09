@@ -12,7 +12,7 @@ export class UsersService {
 	) {}
 	create(createUserInput: CreateUserInput): Promise<User> {
 		console.log(createUserInput);
-		return this.usersRepository.save(createUserInput);
+		return this.usersRepository.save({ role: 'user', ...createUserInput });
 	}
 
 	findAll(): Promise<User[]> {
@@ -21,6 +21,12 @@ export class UsersService {
 
 	findOne(user: Partial<User>): Promise<User> {
 		return this.usersRepository.findOne({ where: user });
+	}
+
+	findOneWithPassword(user: Partial<User>): Promise<User> {
+		const queryBuilder = this.usersRepository.createQueryBuilder('user');
+		queryBuilder.where(user).addSelect('user.password');
+		return queryBuilder.getOne();
 	}
 
 	async update(id: number, updateUserInput: UpdateUserInput): Promise<User> {
