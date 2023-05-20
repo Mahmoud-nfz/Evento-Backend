@@ -8,6 +8,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { UsersModule } from './users/users.module';
 import { GenericModule } from './generic/generic.module';
 import { AuthModule } from './auth/auth.module';
+import { EventGenresModule } from './event-genres/event-genres.module';
 
 @Module({
 	imports: [
@@ -32,6 +33,7 @@ import { AuthModule } from './auth/auth.module';
 		UsersModule,
 		GenericModule,
 		AuthModule,
+		EventGenresModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],

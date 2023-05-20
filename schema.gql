@@ -50,11 +50,36 @@ type UserLoginResponse {
   access_token: String!
 }
 
+type EventGenre {
+  """id"""
+  id: Int!
+
+  """created at"""
+  createdAt: DateTime!
+
+  """updated at"""
+  updatedAt: DateTime!
+
+  """deleted at"""
+  deletedAt: DateTime!
+
+  """code name"""
+  codeName: String!
+
+  """display name"""
+  displayName: String!
+
+  """description"""
+  description: String!
+}
+
 type Query {
   users: [User!]!
   user(id: Int!): User!
   whoAmI: User!
   hello: String!
+  eventGenres: [EventGenre!]!
+  eventGenre(id: Int!): EventGenre!
 }
 
 type Mutation {
@@ -63,6 +88,9 @@ type Mutation {
   removeUser(id: Int!): User!
   signup(user: CreateUserInput!): User!
   login(email: String!, password: String!): UserLoginResponse!
+  createEventGenre(createEventGenreInput: CreateEventGenreInput!): EventGenre!
+  updateEventGenre(updateEventGenreInput: UpdateEventGenreInput!): EventGenre!
+  removeEventGenre(id: Int!): EventGenre!
 }
 
 input CreateUserInput {
@@ -109,5 +137,28 @@ input UpdateUserInput {
 
   """state"""
   state: String
+  id: Int!
+}
+
+input CreateEventGenreInput {
+  """code name"""
+  codeName: String!
+
+  """display name"""
+  displayName: String!
+
+  """description"""
+  description: String!
+}
+
+input UpdateEventGenreInput {
+  """code name"""
+  codeName: String
+
+  """display name"""
+  displayName: String
+
+  """description"""
+  description: String
   id: Int!
 }
