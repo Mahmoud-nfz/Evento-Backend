@@ -23,12 +23,8 @@ export class AuthService {
 
 	async signup(user: CreateUserInput): Promise<UserDTO> {
 		let existingUser = await this.usersService.findOne({
-			username: user.username,
+			email: user.email,
 		});
-		if (existingUser) {
-			throw new BadRequestException('Username already exists');
-		}
-		existingUser = await this.usersService.findOne({ email: user.email });
 		if (existingUser) {
 			throw new BadRequestException('Email already exists');
 		}
@@ -49,8 +45,8 @@ export class AuthService {
 		return this.usersService.create(user);
 	}
 
-	async validateUser(username: string, password: string): Promise<UserDTO> {
-		const user = await this.usersService.findOneWithPassword({ username });
+	async validateUser(email: string, password: string): Promise<UserDTO> {
+		const user = await this.usersService.findOneWithPassword({ email });
 		if (!user) throw new NotFoundException('user not found');
 
 		const [salt, storedHash] = user.password.split('.');

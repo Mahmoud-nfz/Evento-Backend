@@ -10,11 +10,6 @@ import {
 
 @InputType()
 export class CreateUserInput {
-	@Field(() => String, { description: 'username' })
-	@IsNotEmpty()
-	@MaxLength(30)
-	username: string;
-
 	@Field(() => String, { description: 'first name' })
 	@IsNotEmpty()
 	@MaxLength(30)
@@ -49,8 +44,4 @@ export class CreateUserInput {
 	@Field(() => String, { description: 'state' })
 	@IsNotEmpty()
 	state: string;
-
-	@Field(() => String, { description: 'address' })
-	@IsNotEmpty()
-	address: string;
 }

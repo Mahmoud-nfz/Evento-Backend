@@ -6,10 +6,6 @@ import { LowercaseTransformer } from '../../generic/transformers/lowercase.trans
 @ObjectType()
 @Entity()
 export class User extends GenericEntity {
-	@Field(() => String, { description: 'username' })
-	@Column({ unique: true, transformer: new LowercaseTransformer() })
-	username: string;
-
 	@Field(() => String, { description: 'first name' })
 	@Column()
 	firstName: string;
@@ -41,12 +37,4 @@ export class User extends GenericEntity {
 	@Field(() => String, { description: 'state' })
 	@Column()
 	state: string;
-
-	@Field(() => String, { description: 'address' })
-	@Column()
-	address: string;
-
-	@Field(() => String, { description: 'gps address' })
-	@Column({ nullable: true })
-	gpsAddress: string;
 }

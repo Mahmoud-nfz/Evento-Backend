@@ -15,9 +15,6 @@ type User {
   """deleted at"""
   deletedAt: DateTime!
 
-  """username"""
-  username: String!
-
   """first name"""
   firstName: String!
 
@@ -41,12 +38,6 @@ type User {
 
   """state"""
   state: String!
-
-  """address"""
-  address: String!
-
-  """gps address"""
-  gpsAddress: String!
 }
 
 """
@@ -71,13 +62,10 @@ type Mutation {
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser(id: Int!): User!
   signup(user: CreateUserInput!): User!
-  login(username: String!, password: String!): UserLoginResponse!
+  login(email: String!, password: String!): UserLoginResponse!
 }
 
 input CreateUserInput {
-  """username"""
-  username: String!
-
   """first name"""
   firstName: String!
 
@@ -98,15 +86,9 @@ input CreateUserInput {
 
   """state"""
   state: String!
-
-  """address"""
-  address: String!
 }
 
 input UpdateUserInput {
-  """username"""
-  username: String
-
   """first name"""
   firstName: String
 
@@ -127,8 +109,5 @@ input UpdateUserInput {
 
   """state"""
   state: String
-
-  """address"""
-  address: String
   id: Int!
 }

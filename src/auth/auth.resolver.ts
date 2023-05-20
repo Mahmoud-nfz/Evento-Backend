@@ -27,10 +27,10 @@ export class AuthResolver {
 
 	@Mutation(() => UserLoginResponse)
 	async login(
-		@Args('username') username: string,
+		@Args('email') email: string,
 		@Args('password') password: string
 	): Promise<UserLoginResponse> {
-		const user = await this.authService.validateUser(username, password);
+		const user = await this.authService.validateUser(email, password);
 		const accessToken = await this.authService.login(user);
 		return { ...accessToken, user };
 	}
@@ -48,6 +48,6 @@ export class AuthResolver {
 	@UseGuards(GqlAuthGuard, RolesGuard)
 	@Roles('admin')
 	hello(@CurrentUser() user: User) {
-		return `hello ${user.username}`;
+		return `hello ${user.email}`;
 	}
 }
