@@ -9,6 +9,7 @@ import { UsersModule } from './users/users.module';
 import { GenericModule } from './generic/generic.module';
 import { AuthModule } from './auth/auth.module';
 import { EventGenresModule } from './event-genres/event-genres.module';
+import { FilesModule } from './files/files.module';
 
 @Module({
 	imports: [
@@ -34,6 +35,7 @@ import { EventGenresModule } from './event-genres/event-genres.module';
 		GenericModule,
 		AuthModule,
 		EventGenresModule,
+		FilesModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],
