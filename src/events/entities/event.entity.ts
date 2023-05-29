@@ -1,11 +1,11 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Column, Entity, OneToMany } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { GenericEntity } from '../../generic/entities/generic.entity';
-import { Event } from '../../events/entities/event.entity';
+import { EventGenre } from '../../event-genres/entities/event-genre.entity';
 
 @ObjectType()
 @Entity()
-export class EventGenre extends GenericEntity {
+export class Event extends GenericEntity {
 	@Field(() => String, { description: 'code name' })
 	@Column({ unique: true })
 	codeName: string;
@@ -23,10 +23,10 @@ export class EventGenre extends GenericEntity {
 	description?: string;
 
 	@Field(() => String, { description: 'image' })
-	@Column({ default: 'event-genre-default.png' })
+	@Column({ default: 'event-default.png' })
 	image?: string;
 
-	@Field(() => [Event], { description: 'events' })
-	@OneToMany(() => Event, (event) => event.genre)
-	events?: Event[];
+	@Field(() => EventGenre, { description: 'event genre' })
+	@ManyToOne(() => EventGenre, (eventGenre) => eventGenre.events)
+	genre?: EventGenre;
 }

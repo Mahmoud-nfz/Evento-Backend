@@ -50,6 +50,38 @@ type UserLoginResponse {
   access_token: String!
 }
 
+type Event {
+  """id"""
+  id: Int!
+
+  """created at"""
+  createdAt: DateTime!
+
+  """updated at"""
+  updatedAt: DateTime!
+
+  """deleted at"""
+  deletedAt: DateTime!
+
+  """code name"""
+  codeName: String!
+
+  """display name"""
+  displayName: String!
+
+  """color"""
+  color: String!
+
+  """description"""
+  description: String!
+
+  """image"""
+  image: String!
+
+  """event genre"""
+  genre: EventGenre!
+}
+
 type EventGenre {
   """id"""
   id: Int!
@@ -69,8 +101,17 @@ type EventGenre {
   """display name"""
   displayName: String!
 
+  """color"""
+  color: String!
+
   """description"""
   description: String!
+
+  """image"""
+  image: String!
+
+  """events"""
+  events: [Event!]!
 }
 
 type Query {
@@ -80,6 +121,9 @@ type Query {
   hello: String!
   eventGenres: [EventGenre!]!
   eventGenre(id: Int!): EventGenre!
+  eventGenreWithEvents(id: Int!): EventGenre!
+  events: [Event!]!
+  event(id: Int!): Event!
 }
 
 type Mutation {
@@ -91,6 +135,9 @@ type Mutation {
   createEventGenre(createEventGenreInput: CreateEventGenreInput!): EventGenre!
   updateEventGenre(updateEventGenreInput: UpdateEventGenreInput!): EventGenre!
   removeEventGenre(id: Int!): EventGenre!
+  createEvent(createEventInput: CreateEventInput!): Event!
+  updateEvent(updateEventInput: UpdateEventInput!): Event!
+  removeEvent(id: Int!): Event!
 }
 
 input CreateUserInput {
@@ -149,6 +196,9 @@ input CreateEventGenreInput {
 
   """description"""
   description: String!
+
+  """color"""
+  color: String!
 }
 
 input UpdateEventGenreInput {
@@ -160,5 +210,49 @@ input UpdateEventGenreInput {
 
   """description"""
   description: String
+
+  """color"""
+  color: String
+  id: Int!
+}
+
+input CreateEventInput {
+  """code name"""
+  codeName: String!
+
+  """display name"""
+  displayName: String!
+
+  """description"""
+  description: String!
+
+  """color"""
+  color: String!
+
+  """image"""
+  image: String!
+
+  """event genre id"""
+  genre: Int!
+}
+
+input UpdateEventInput {
+  """code name"""
+  codeName: String
+
+  """display name"""
+  displayName: String
+
+  """description"""
+  description: String
+
+  """color"""
+  color: String
+
+  """image"""
+  image: String
+
+  """event genre id"""
+  genre: Int
   id: Int!
 }

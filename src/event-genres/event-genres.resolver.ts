@@ -1,6 +1,7 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { EventGenresService } from './event-genres.service';
 import { EventGenre } from './entities/event-genre.entity';
+import { Event } from '../events/entities/event.entity';
 import { CreateEventGenreInput } from './dto/create-event-genre.input';
 import { UpdateEventGenreInput } from './dto/update-event-genre.input';
 import { UseGuards } from '@nestjs/common';
@@ -30,6 +31,13 @@ export class EventGenresResolver {
 	@Query(() => EventGenre, { name: 'eventGenre' })
 	findOne(@Args('id', { type: () => Int }) id: number) {
 		return this.eventGenresService.findOne(id);
+	}
+
+	@Query(() => EventGenre, { name: 'eventGenreWithEvents' })
+	async findEventGenreWithEvents(
+		@Args('id', { type: () => Int }) id: number
+	) {
+		return this.eventGenresService.findOne(id, true);
 	}
 
 	@UseGuards(GqlAuthGuard, RolesGuard)

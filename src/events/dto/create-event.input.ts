@@ -1,7 +1,9 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
+import { EventGenre } from '../../event-genres/entities/event-genre.entity';
+import { Column, ManyToOne } from 'typeorm';
 
 @InputType()
-export class CreateEventGenreInput {
+export class CreateEventInput {
 	@Field(() => String, { description: 'code name' })
 	codeName: string;
 
@@ -13,4 +15,10 @@ export class CreateEventGenreInput {
 
 	@Field(() => String, { description: 'color' })
 	color: string;
+
+	@Field(() => String, { description: 'image' })
+	image?: string;
+
+	@Field(() => Int, { description: 'event genre id' })
+	genre?: EventGenre;
 }

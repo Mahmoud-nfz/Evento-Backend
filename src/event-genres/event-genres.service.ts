@@ -11,8 +11,10 @@ export class EventGenresService {
 		@InjectRepository(EventGenre)
 		private eventGenreRepository: Repository<EventGenre>
 	) {}
-	create(createEventGenreInput: CreateEventGenreInput): Promise<EventGenre> {
-		const existingEventGenre = this.eventGenreRepository.findOne({
+	async create(
+		createEventGenreInput: CreateEventGenreInput
+	): Promise<EventGenre> {
+		const existingEventGenre = await this.eventGenreRepository.findOne({
 			where: { codeName: createEventGenreInput.codeName },
 		});
 		if (existingEventGenre) {
@@ -25,8 +27,19 @@ export class EventGenresService {
 		return this.eventGenreRepository.find();
 	}
 
-	findOne(id: number): Promise<EventGenre> {
-		return this.eventGenreRepository.findOne({ where: { id } });
+	findOne(id: number, events: boolean = false): Promise<EventGenre> {
+		this.eventGenreRepository
+			.findOne({
+				where: { id },
+				relations: events ? ['events'] : [],
+			})
+			.then((eventGenre) => {
+				console.log(eventGenre);
+			});
+		return this.eventGenreRepository.findOne({
+			where: { id },
+			relations: events ? ['events'] : [],
+		});
 	}
 
 	update(updateEventGenreInput: UpdateEventGenreInput): Promise<EventGenre> {
