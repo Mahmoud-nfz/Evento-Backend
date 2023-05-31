@@ -1,6 +1,5 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
 import { EventGenre } from '../../event-genres/entities/event-genre.entity';
-import { Column, ManyToOne } from 'typeorm';
 
 @InputType()
 export class CreateEventInput {

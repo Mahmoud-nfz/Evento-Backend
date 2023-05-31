@@ -31,4 +31,14 @@ export class EventsService {
 	remove(id: number) {
 		return this.eventRepository.softDelete({ id });
 	}
+
+	async eventBelongsToUser(eventId: number, userId: number) {
+		const event = await this.eventRepository.findOne({
+			where: { id: eventId, owner: { id: userId } },
+			relations: ['owner'],
+		});
+		if (!event) return false;
+		if (!event.owner) return false;
+		return event.owner.id === userId;
+	}
 }

@@ -11,6 +11,8 @@ import { AuthModule } from './auth/auth.module';
 import { EventGenresModule } from './event-genres/event-genres.module';
 import { FilesModule } from './files/files.module';
 import { EventsModule } from './events/events.module';
+import { SeatingSectionsModule } from './seating-sections/seating-sections.module';
+import { SeatsModule } from './seats/seats.module';
 
 @Module({
 	imports: [
@@ -38,6 +40,8 @@ import { EventsModule } from './events/events.module';
 		EventGenresModule,
 		FilesModule,
 		EventsModule,
+		SeatingSectionsModule,
+		SeatsModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],

@@ -2,6 +2,148 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type EventGenre {
+  """id"""
+  id: Int!
+
+  """created at"""
+  createdAt: DateTime!
+
+  """updated at"""
+  updatedAt: DateTime!
+
+  """deleted at"""
+  deletedAt: DateTime!
+
+  """code name"""
+  codeName: String!
+
+  """display name"""
+  displayName: String!
+
+  """color"""
+  color: String!
+
+  """description"""
+  description: String!
+
+  """image"""
+  image: String!
+
+  """events"""
+  events: [Event!]!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Seat {
+  """id"""
+  id: Int!
+
+  """created at"""
+  createdAt: DateTime!
+
+  """updated at"""
+  updatedAt: DateTime!
+
+  """deleted at"""
+  deletedAt: DateTime!
+
+  """name"""
+  name: String!
+
+  """price"""
+  price: Int!
+
+  """is selling"""
+  isSelling: Boolean!
+
+  """seating section"""
+  seatingSection: Event!
+
+  """user that reserved, awaiting purchase confirmation"""
+  userReserved: User!
+
+  """user that purchased"""
+  userPurchased: User!
+}
+
+type SeatingSection {
+  """id"""
+  id: Int!
+
+  """created at"""
+  createdAt: DateTime!
+
+  """updated at"""
+  updatedAt: DateTime!
+
+  """deleted at"""
+  deletedAt: DateTime!
+
+  """name"""
+  name: String!
+
+  """description"""
+  description: String!
+
+  """price"""
+  price: Int!
+
+  """number of seats"""
+  numberOfSeats: Int!
+
+  """is currently selling"""
+  isSelling: Boolean!
+
+  """event"""
+  event: Event!
+
+  """seats"""
+  seats: [Seat!]!
+}
+
+type Event {
+  """id"""
+  id: Int!
+
+  """created at"""
+  createdAt: DateTime!
+
+  """updated at"""
+  updatedAt: DateTime!
+
+  """deleted at"""
+  deletedAt: DateTime!
+
+  """code name"""
+  codeName: String!
+
+  """display name"""
+  displayName: String!
+
+  """color"""
+  color: String!
+
+  """description"""
+  description: String!
+
+  """image"""
+  image: String!
+
+  """event owner"""
+  owner: User!
+
+  """event genre"""
+  genre: EventGenre!
+
+  """seating sections"""
+  seatingSections: [SeatingSection!]!
+}
+
 type User {
   """id"""
   id: Int!
@@ -38,80 +180,20 @@ type User {
 
   """state"""
   state: String!
-}
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
+  """events"""
+  events: [Event!]!
+
+  """seats reserved awaiting purchase confirmation"""
+  seatsReserved: [Seat!]!
+
+  """seats purchased"""
+  seatsPurchased: [Seat!]!
+}
 
 type UserLoginResponse {
   user: User!
   access_token: String!
-}
-
-type Event {
-  """id"""
-  id: Int!
-
-  """created at"""
-  createdAt: DateTime!
-
-  """updated at"""
-  updatedAt: DateTime!
-
-  """deleted at"""
-  deletedAt: DateTime!
-
-  """code name"""
-  codeName: String!
-
-  """display name"""
-  displayName: String!
-
-  """color"""
-  color: String!
-
-  """description"""
-  description: String!
-
-  """image"""
-  image: String!
-
-  """event genre"""
-  genre: EventGenre!
-}
-
-type EventGenre {
-  """id"""
-  id: Int!
-
-  """created at"""
-  createdAt: DateTime!
-
-  """updated at"""
-  updatedAt: DateTime!
-
-  """deleted at"""
-  deletedAt: DateTime!
-
-  """code name"""
-  codeName: String!
-
-  """display name"""
-  displayName: String!
-
-  """color"""
-  color: String!
-
-  """description"""
-  description: String!
-
-  """image"""
-  image: String!
-
-  """events"""
-  events: [Event!]!
 }
 
 type Query {
@@ -124,6 +206,13 @@ type Query {
   eventGenreWithEvents(id: Int!): EventGenre!
   events: [Event!]!
   event(id: Int!): Event!
+  findSeatingSectionsByEvent(eventId: Int!): [SeatingSection!]!
+  findEventSeatsBySeatingSection(eventId: Int!): [SeatingSection!]!
+  seatingSections: [SeatingSection!]!
+  seatingSection(id: Int!): SeatingSection!
+  findAllAvailableSeatsInSection(sectionId: Int!): [Seat!]!
+  seats: [Seat!]!
+  seat(id: Int!): Seat!
 }
 
 type Mutation {
@@ -138,6 +227,15 @@ type Mutation {
   createEvent(createEventInput: CreateEventInput!): Event!
   updateEvent(updateEventInput: UpdateEventInput!): Event!
   removeEvent(id: Int!): Event!
+  createSeatingSection(createSeatingSectionInput: CreateSeatingSectionInput!): SeatingSection!
+  setSellingSeatingSection(seatingSectionId: Int!): SeatingSection!
+  updateSeatingSection(updateSeatingSectionInput: UpdateSeatingSectionInput!): SeatingSection!
+  removeSeatingSection(id: Int!): SeatingSection!
+  createSeat(createSeatInput: CreateSeatInput!): Seat!
+  reserveSeat(seatId: Float!): Seat!
+  purchaseSeat(seatId: Float!): Seat!
+  updateSeat(updateSeatInput: UpdateSeatInput!): Seat!
+  removeSeat(id: Int!): Seat!
 }
 
 input CreateUserInput {
@@ -254,5 +352,69 @@ input UpdateEventInput {
 
   """event genre id"""
   genre: Int
+  id: Int!
+}
+
+input CreateSeatingSectionInput {
+  """name"""
+  name: String!
+
+  """description"""
+  description: String!
+
+  """price"""
+  price: Int!
+
+  """number of seats"""
+  numberOfSeats: Int!
+
+  """event id"""
+  event: Int!
+}
+
+input UpdateSeatingSectionInput {
+  """name"""
+  name: String
+
+  """description"""
+  description: String
+
+  """price"""
+  price: Int
+
+  """number of seats"""
+  numberOfSeats: Int
+
+  """event id"""
+  event: Int
+  id: Int!
+}
+
+input CreateSeatInput {
+  """name"""
+  name: String!
+
+  """price"""
+  price: Int!
+
+  """seating section"""
+  seatingSection: Int!
+
+  """is selling"""
+  isSelling: Boolean!
+}
+
+input UpdateSeatInput {
+  """name"""
+  name: String
+
+  """price"""
+  price: Int
+
+  """seating section"""
+  seatingSection: Int
+
+  """is selling"""
+  isSelling: Boolean
   id: Int!
 }
